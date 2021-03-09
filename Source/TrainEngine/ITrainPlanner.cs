@@ -6,6 +6,12 @@ namespace TrainEngine
 {
     public interface ITrainPlanner
     {
-        public ITrainPlanner HeadTowards();
+        public ITrainPlanner HeadTowards(Station station);
+        public ITrainPlanner StartTrainAt(string departureTime);
+        public ITrainPlanner StopTrainAt(Station station, string arrivalTime);
+        public ITravelPlan GeneratePlan();
+
+
+
     }
 }

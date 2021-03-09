@@ -6,7 +6,7 @@ namespace TrainEngine
 {
     public interface ITravelPlan
     {
-        public List<object> TimeTable { get; }
+        public List<TimeTableEntry> TimeTable { get; set; }
 
         public Train Train { get; }
 
