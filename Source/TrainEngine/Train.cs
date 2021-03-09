@@ -6,6 +6,17 @@ namespace TrainEngine
 {
     public class Train
     {
-        string Name { get; set; }
+        public string TrainName { get; set; }
+        public int TrainID { get; set; }
+        public int MaxSpeed { get; set; }
+        public bool Operated { get; set; }
+
+        public Train(string name)
+        {
+            TrainName = name;
+        }
+    
     }
+
+
 }

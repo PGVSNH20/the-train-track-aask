@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TrainEngine
 {
-    public class TrainPlanner : ITravelPlan
+    public class TrainPlanner : ITrainPlanner
     {
         public Train Train { get; }
         public Station StartStation { get; }
@@ -12,7 +12,7 @@ namespace TrainEngine
         public string DepartureTime { get; set; }
         public string ArrivalTime { get; set; }
 
-        public List<object> TimeTable => throw new NotImplementedException();
+        public List<TimeTableEntry> TimeTable { get; set; }
 
         public TrainPlanner(Train train, Station station)
         {
@@ -20,17 +20,17 @@ namespace TrainEngine
             StartStation = station;
         }
 
-        public ITravelPlan HeadTowards()
+        public ITrainPlanner HeadTowards()
         {
             return this;
         }
 
-        public ITravelPlan StartTrainAt()
+        public ITrainPlanner StartTrainAt()
         {
             return this;
         }
 
-        public ITravelPlan StopTrainAt()
+        public ITrainPlanner StopTrainAt()
         {
             return this;
         }

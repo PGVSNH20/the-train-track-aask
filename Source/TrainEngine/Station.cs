@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TrainEngine
+﻿namespace TrainEngine
 {
     public class Station
     {
-        string City { get; set; }
+        public int StationID { get; set; }
+        public bool EndStation { get; set; }
+        public string StationName { get; set; }
+
+        public Station(string name)
+        {
+            StationName = name;
+        }
     }
 }
