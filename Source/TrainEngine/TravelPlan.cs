@@ -10,6 +10,8 @@ namespace TrainEngine
 
         private Train Train { get; set; }
 
+        private string TrainTrack { get; set; }
+
         public void Load(string path)
         {
             throw new NotImplementedException();
@@ -87,6 +89,10 @@ namespace TrainEngine
             }
 
             return trains;
+        }
+
+        public void GetTrainTrack()
+        {
 
         }
     }

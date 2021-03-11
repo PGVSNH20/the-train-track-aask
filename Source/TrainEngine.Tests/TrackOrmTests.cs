@@ -67,7 +67,6 @@ namespace TrainEngine.Tests
             var trains = TravelPlan.GetTrains(@"Data\trains.txt");
             Assert.IsType<List<Train>>(trains);
         }
-
-        [Fact]
+        }
     }
 }
