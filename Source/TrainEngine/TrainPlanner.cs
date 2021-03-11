@@ -20,23 +20,25 @@ namespace TrainEngine
             StartStation = station;
         }
 
-        public ITrainPlanner HeadTowards()
+        public ITrainPlanner HeadTowards(Station station)
         {
             return this;
         }
 
-        public ITrainPlanner StartTrainAt()
+        public ITrainPlanner StartTrainAt(string departureTime)
         {
             return this;
         }
 
-        public ITrainPlanner StopTrainAt()
+        public ITrainPlanner StopTrainAt(Station station, string arrivalTime)
         {
             return this;
         }
 
         public ITravelPlan GeneratePlan()
         {
+            //skapa travelPlan objekt
+            TravelPlan travelplan = new TravelPlan(Train);
             return this;
         }
 

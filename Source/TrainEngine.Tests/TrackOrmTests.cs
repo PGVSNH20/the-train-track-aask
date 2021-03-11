@@ -40,8 +40,9 @@ namespace TrainEngine.Tests
         {
             Train train = new Train("Lapplandståget");
             Station station = new Station("Grand Retro");
+            Station endStation = new Station("Uppsala");
 
-            var travelPlan = new TrainPlanner(train, station).HeadTowards().StartTrainAt();
+            var travelPlan = new TrainPlanner(train, station).HeadTowards(station).StartTrainAt("09:00").StopTrainAt(endStation, "12:00").GeneratePlan();
         }
     }
 }
