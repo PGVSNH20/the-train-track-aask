@@ -55,10 +55,19 @@ namespace TrainEngine.Tests
         }
 
         [Fact]
-        public void When_Reading_Station_Expect_ListOfStation()
+        public void When_Reading_Stations_Expect_ListOfStations()
         {
-            var stations = TravelPlan.GetStations(@"?\Data\stations.txt");
+            var stations = TravelPlan.GetStations(@"Data\stations.txt");
             Assert.IsType<List<Station>>(stations);
         }
+
+        [Fact]
+        public void When_Reading_Trains_Expect_ListOfTrains()
+        {
+            var trains = TravelPlan.GetTrains(@"Data\trains.txt");
+            Assert.IsType<List<Train>>(trains);
+        }
+
+        [Fact]
     }
 }
