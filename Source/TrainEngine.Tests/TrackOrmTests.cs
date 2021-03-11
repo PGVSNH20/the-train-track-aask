@@ -42,7 +42,7 @@ namespace TrainEngine.Tests
             Station station = new Station("Grand Retro");
             Station endStation = new Station("Uppsala");
 
-            var travelPlan = new TrainPlanner(train, station).HeadTowards(station).StartTrainAt("09:00").StopTrainAt(endStation, "12:00").GeneratePlan();
+            var travelPlan = new TrainPlanner(train, station).HeadTowards(station).StartTrainAt().StopTrainAt(endStation, "12:00").GeneratePlan();
         }
     }
 }

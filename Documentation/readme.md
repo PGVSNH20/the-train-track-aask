@@ -1,6 +1,15 @@
 # Documentation
 
-## Att göra:
-* Skicka in parametrar i metoderna i TrainPlanner.
-* Slutföra testet When_Using_TrainPlanner_Expect_ITravelPlan.
+## Behövs:
 
+### Interface ITravelPlan:
+Metoder:
+
+StartAt(string station, string time)
+station och time läggs till i en lista kallad TimeTable.
+
+ArriveAt(string station, string time)
+station och time läggs till i TimeTable
+
+GeneratePlan()
+returnerar en TravelPlan
