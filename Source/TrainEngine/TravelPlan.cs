@@ -50,5 +50,10 @@ namespace TrainEngine
         {
             return this;
         }
+
+        public void GetStations(string fileName)
+        {
+            string[] lines = System.IO.File.ReadAllLines("station.txt");
+        }
     }
 }

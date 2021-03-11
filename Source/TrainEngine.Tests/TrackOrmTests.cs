@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace TrainEngine.Tests
@@ -51,6 +52,13 @@ namespace TrainEngine.Tests
             var travelplan = new TravelPlan().StartAt("station1", "tid1").ArriveAt("station2", "tid2").GeneratePlan();
 
             Assert.IsType<TravelPlan>(travelplan);
+        }
+
+        [Fact]
+        public void When_Reading_Station_Expect_ListOfStation()
+        {
+            var stations = TravelPlan.GetStations("stations.txt");
+            Assert.IsType<List<Station>>(stations);
         }
     }
 }
