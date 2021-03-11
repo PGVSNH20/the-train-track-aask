@@ -12,7 +12,7 @@ namespace TrainEngine
         public string DepartureTime { get; set; }
         public string ArrivalTime { get; set; }
 
-        public List<TimeTableEntry> TimeTable { get; set; }
+        //public List<TimeTableEntry> TimeTable { get; set; }
 
         public TrainPlanner(Train train, Station station)
         {

@@ -23,6 +23,13 @@ namespace TrainEngine
         public TravelPlan(Train train)
         {
             Train = train;
+
+            TimeTable = new List<TimeTableEntry>();
+        }
+
+        public void AddEntry(Station station, string depTime, string arTime)
+        {
+            TimeTable.Add(new TimeTableEntry() { TrainID = Train.TrainID, StationID = station.StationID, DepartureTime = depTime, ArrivalTime = arTime});
         }
     }
 }

@@ -6,7 +6,7 @@ namespace TrainEngine
     {
         public int TrainID { get; set; }
         public int StationID { get; set; }
-        public DateTime ? DepartureTime { get; set; }
-        public DateTime ? ArrivalTime { get; set; }
+        public string DepartureTime { get; set; }
+        public string ArrivalTime { get; set; }
     }
 }
