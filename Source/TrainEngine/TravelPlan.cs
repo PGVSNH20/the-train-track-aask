@@ -54,7 +54,7 @@ namespace TrainEngine
         public static List<Station> GetStations(string fileName)
         {
             List<Station> stations = new List<Station>();
-            string[] lines = System.IO.File.ReadAllLines("station.txt");
+            string[] lines = System.IO.File.ReadAllLines(fileName);
 
             foreach(string line in lines)
             {
