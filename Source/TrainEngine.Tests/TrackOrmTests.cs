@@ -35,14 +35,22 @@ namespace TrainEngine.Tests
         //    Assert.Equal(3, result.NumberOfTrackParts);
         //}
 
-        [Fact]
-        public void When_Using_TrainPlanner_Expect_ITravelPlan()
-        {
-            Train train = new Train("Lapplandståget");
-            Station station = new Station("Grand Retro");
-            Station endStation = new Station("Uppsala");
+        //[Fact]
+        //public void When_Using_TrainPlanner_Expect_ITravelPlan()
+        //{
+        //    Train train = new Train("Lapplandståget");
+        //    Station station = new Station("Grand Retro");
+        //    Station endStation = new Station("Uppsala");
 
-            var travelPlan = new TrainPlanner(train, station).HeadTowards(station).StartTrainAt().StopTrainAt(endStation, "12:00").GeneratePlan();
+        //    var travelPlan = new TrainPlanner(train, station).HeadTowards(station).StartTrainAt().StopTrainAt(endStation, "12:00").GeneratePlan();
+        //}
+
+        [Fact]
+        public void When_Using_StartAt_ArriveAt_GeneratePlan_Expect_ITravelPlan()
+        {
+            var travelplan = new TravelPlan().StartAt("station1", "tid1").ArriveAt("station2", "tid2").GeneratePlan();
+
+            Assert.IsType<TravelPlan>(travelplan);
         }
     }
 }

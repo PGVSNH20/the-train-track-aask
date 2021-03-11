@@ -4,6 +4,7 @@ using System.Text;
 
 namespace TrainEngine
 {
+    //vårt ORM?
     public class TrainPlanner : ITrainPlanner
     {
         public Train Train { get; }
@@ -40,9 +41,9 @@ namespace TrainEngine
 
         public ITravelPlan GeneratePlan()
         {
-            //skapa travelPlan objekt
-            TravelPlan travelplan = new TravelPlan(Train);
-            return this;
+        //    //skapa travelPlan objekt
+        //    //TravelPlan travelplan = new TravelPlan(Train);
+            return null;
         }
 
         public void Save(string path)
