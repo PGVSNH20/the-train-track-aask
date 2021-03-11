@@ -31,5 +31,7 @@ namespace TrainEngine
         {
             TimeTable.Add(new TimeTableEntry() { TrainID = Train.TrainID, StationID = station.StationID, DepartureTime = depTime, ArrivalTime = arTime});
         }
+
+
     }
 }

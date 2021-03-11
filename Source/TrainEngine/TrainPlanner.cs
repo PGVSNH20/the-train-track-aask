@@ -7,10 +7,11 @@ namespace TrainEngine
     public class TrainPlanner : ITrainPlanner
     {
         public Train Train { get; }
-        public Station StartStation { get; }
-        public Station EndStation { get; }
-        public string DepartureTime { get; set; }
-        public string ArrivalTime { get; set; }
+
+        private Station StartStation { get; }
+        private Station EndStation { get; set; }
+        private string DepartureTime { get; set; }
+        private string ArrivalTime { get; set; }
 
         //public List<TimeTableEntry> TimeTable { get; set; }
 
@@ -22,11 +23,13 @@ namespace TrainEngine
 
         public ITrainPlanner HeadTowards(Station station)
         {
+            EndStation = station;
             return this;
         }
 
-        public ITrainPlanner StartTrainAt(string departureTime)
+        public ITrainPlanner StartTrainAt(Station station, string departureTime)
         {
+            
             return this;
         }
 
