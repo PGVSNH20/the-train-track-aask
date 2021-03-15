@@ -20,21 +20,25 @@ namespace TrainEngine
                     var id = Convert.ToInt32(chars[i + 1].ToString());
                     var station = stations.Find(st => st.StationID == id);
                     trackDescription.Parts.Add(station);
+                    trackDescription.NumberOfTrackParts++;
                 }
 
                 if (chars[i] == '-' || chars[i] == '/' || chars[i] == '\\')
                 {
                     trackDescription.Parts.Add(new Length());
+                    trackDescription.NumberOfTrackParts++;
                 }
 
                 if (chars[i] == '=')
                 {
                     trackDescription.Parts.Add(new Crossing());
+                    trackDescription.NumberOfTrackParts++;
                 }
 
                 if (chars[i] == '<' || chars[i] == '>')
                 {
                     trackDescription.Parts.Add(new Switch());
+                    trackDescription.NumberOfTrackParts++;
                 }
             }
 

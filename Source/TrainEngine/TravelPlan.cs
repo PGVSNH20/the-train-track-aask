@@ -15,7 +15,7 @@ namespace TrainEngine
 
         private Train Train { get; set; }
 
-        private string TrainTrack { get; set; }
+        private TrackDescription TrainTrack { get; set; }
 
         public static ITravelPlan Load(string path)
         {
@@ -35,9 +35,9 @@ namespace TrainEngine
             File.WriteAllText(path, travelPlanString);
         }
 
-        public TravelPlan()
+        public TravelPlan(Train train)
         {
-            //Train = train;
+            Train = train;
 
             TimeTable = new List<string>();
         }

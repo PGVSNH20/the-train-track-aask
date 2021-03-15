@@ -74,6 +74,13 @@ namespace TrainEngine.Tests
             var trackDescription = TrackOrm.ParseTrackDescription(@"Data\traintrack1.txt");
             Assert.IsType<TrackDescription>(trackDescription);
         }
+
+        [Fact]
+        public void When_Using_ParseTrackDescriptionForTrainTrack2_Expect_TrackDescriptionWith28Parts()
+        {
+            var trackDescription = TrackOrm.ParseTrackDescription(@"Data\traintrack2.txt");
+            Assert.Equal(28, trackDescription.NumberOfTrackParts);
+        }
     }
 }
 
