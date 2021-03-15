@@ -6,7 +6,10 @@ namespace TrainEngine
     {
         public int NumberOfTrackParts { get; set; }
         public List<object> Parts { get; set; }
-    }
 
-    
+        public TrackDescription()
+        {
+            Parts = new List<object>();
+        }
+    }
 }

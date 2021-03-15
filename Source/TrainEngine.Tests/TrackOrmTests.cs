@@ -71,7 +71,7 @@ namespace TrainEngine.Tests
         [Fact]
         public void When_Using_ParseTrackDescription_Expect_TrackDescription()
         {
-            var trackDescription = TrackOrm.ParseTrackDescription("[1]-------[3]");
+            var trackDescription = TrackOrm.ParseTrackDescription(@"Data\traintrack1.txt");
             Assert.IsType<TrackDescription>(trackDescription);
         }
     }
