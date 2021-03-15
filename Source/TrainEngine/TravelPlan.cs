@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace TrainEngine
 {
@@ -19,7 +22,8 @@ namespace TrainEngine
 
         public void Save(string path)
         {
-            throw new NotImplementedException();
+            string travelPlanString = JsonSerializer.Serialize(this);
+            File.WriteAllText(path, travelPlanString);
         }
 
         public TravelPlan()
