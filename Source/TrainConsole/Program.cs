@@ -24,12 +24,14 @@ namespace TrainConsole
 
             //var td = TrackOrm.ParseTrackDescription("traintrack2.txt");
 
-            Time time = new Time();
+            Clock time = new Clock();
             Thread timeThread = new Thread(time.RunTime);
             timeThread.Start();
 
             var trains = TravelPlan.GetTrains(@"Data\trains.txt");
-            var travelPlan = new TravelPlan(trains[2]).StartAt("Gävle", "12:00").ArriveAt("Uppsala", "13:05").GeneratePlan();
+            var travelPlan = new TravelPlan(trains[2])
+                .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = "12:00", ArrivalTime = null, StationID = 1 })
+                .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = null, ArrivalTime = "12:15", StationID = 2 });
 
             travelPlan.Simulate(time);
 

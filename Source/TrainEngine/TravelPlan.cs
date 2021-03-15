@@ -12,7 +12,7 @@ namespace TrainEngine
 {
     public class TravelPlan : ITravelPlan
     {
-        public List<string> TimeTable { get; set; }
+        public List<TimeTableEntry> TimeTable { get; set; }
 
         private Train Train { get; set; }
 
@@ -40,27 +40,26 @@ namespace TrainEngine
         {
             Train = train;
 
-            TimeTable = new List<string>();
+            TimeTable = new List<TimeTableEntry>();
         }
 
-        //public void AddEntry(Station station, string depTime, string arTime)
-        //{
-        //    TimeTable.Add(new TimeTableEntry() { TrainID = Train.TrainID, StationID = station.StationID, DepartureTime = depTime, ArrivalTime = arTime});
-        //}
-
-        public ITravelPlan StartAt(string station, string depTime)
+        public ITravelPlan AddEntry(TimeTableEntry entry)
         {
-            TimeTable.Add(station);
-            TimeTable.Add(depTime);
+            TimeTable.Add(entry);
+            return this;
+        }
+
+        /*public ITravelPlan StartAt(string station, string depTime)
+        {
+            TimeTable.Add(station + "," + depTime);
             return this;
         }
 
         public ITravelPlan ArriveAt(string station, string arrTime)
         {
-            TimeTable.Add(station);
-            TimeTable.Add(arrTime);
+            TimeTable.Add(station + "," + arrTime);
             return this;
-        }
+        }*/
 
         public ITravelPlan GeneratePlan()
         {
@@ -83,7 +82,6 @@ namespace TrainEngine
             }
 
             return stations;
-            
         }
 
         public static List<Train> GetTrains(string fileName)
@@ -105,18 +103,34 @@ namespace TrainEngine
             return trains;
         }
 
-        public void Simulate(Time time)
+        public void Simulate(Clock time)
         {
             Thread thread = new Thread(() => Run(time));
             thread.Start();
         }
 
-        public void Run(Time time)
+        public void Run(Clock time)
         {
             while(true)
             {
-                Console.WriteLine(" i TravelPlanRun");
                 Thread.Sleep(1000);
+
+                foreach(var entry in TimeTable)
+                {
+                    string departureTime = entry.DepartureTime;
+                    string arrivalTime = entry.ArrivalTime;
+
+                    if (departureTime == time.Time)
+                    {
+                        Console.WriteLine("Train " + Train.TrainName + " departed from " + entry.StationID + ": " + departureTime);
+                    }
+
+
+                    if (arrivalTime == time.Time)
+                    {
+                        Console.WriteLine("Train " + Train.TrainName + " arrival at " + entry.StationID + ": " + arrivalTime);
+                    }
+                }
             }
         }
     }

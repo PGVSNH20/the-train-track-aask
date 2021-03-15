@@ -6,9 +6,12 @@ namespace TrainEngine
     {
         public void Save(string path);
 
-        public ITravelPlan StartAt(string station, string depTime);
+        /*public ITravelPlan StartAt(string station, string depTime);
         public ITravelPlan ArriveAt(string station, string arrTime);
+        */
+
         public ITravelPlan GeneratePlan();
-        public void Simulate(Time time);
+        public void Simulate(Clock time);
+        public ITravelPlan AddEntry(TimeTableEntry entry);
     }
 }
