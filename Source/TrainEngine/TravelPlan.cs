@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Unicode;
 
 namespace TrainEngine
 {
     public class TravelPlan : ITravelPlan
     {
-        private List<string> TimeTable { get; set; }
+        public List<string> TimeTable { get; set; }
 
         private Train Train { get; set; }
 
@@ -22,7 +24,12 @@ namespace TrainEngine
 
         public void Save(string path)
         {
-            string travelPlanString = JsonSerializer.Serialize(this);
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true
+            };
+            string travelPlanString = JsonSerializer.Serialize(this, options);
             File.WriteAllText(path, travelPlanString);
         }
 
