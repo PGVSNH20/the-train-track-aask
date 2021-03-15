@@ -4,8 +4,7 @@ using System.Text;
 
 namespace TrainEngine
 {
-    class TrainTrack
+    class Length
     {
-
     }
 }

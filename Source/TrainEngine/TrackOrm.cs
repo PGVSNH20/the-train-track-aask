@@ -6,7 +6,13 @@ namespace TrainEngine
     {
         public TrackDescription ParseTrackDescription(string track)
         {
-            throw new NotImplementedException();
+            TrackDescription trackDescription = new TrackDescription();
+            char[] chars = track.ToCharArray();
+            foreach(var ch in chars)
+            {
+                if ch =
+            }
+
         }
     }
 }
