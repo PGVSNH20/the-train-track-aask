@@ -15,8 +15,12 @@ namespace TrainConsole
             // Step 2:
             // Make the trains run in treads
 
-            var travelPlan = new TravelPlan().StartAt("Gävle", "12:00").ArriveAt("Uppsala", "13:05").GeneratePlan();
-            travelPlan.Save("minTravelPlan.json");
+            //var travelPlan = new TravelPlan().StartAt("Gävle", "12:00").ArriveAt("Uppsala", "13:05").GeneratePlan();
+            //travelPlan.Save("minTravelPlan.json");
+
+            //var travelPlan = TravelPlan.Load("minTravelPlan.json");
+
+            var td = TrackOrm.ParseTrackDescription("traintrack1.txt");
 
         }
     }

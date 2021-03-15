@@ -17,9 +17,11 @@ namespace TrainEngine
 
         private string TrainTrack { get; set; }
 
-        public void Load(string path)
+        public static ITravelPlan Load(string path)
         {
-            throw new NotImplementedException();
+            string travelPlanString = File.ReadAllText(path);
+            TravelPlan tp = JsonSerializer.Deserialize<TravelPlan>(travelPlanString);
+            return tp;
         }
 
         public void Save(string path)

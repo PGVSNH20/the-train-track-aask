@@ -17,7 +17,7 @@ namespace TrainEngine
                 if (chars[i] == '[')
                 {
                     var stations = TravelPlan.GetStations(@"Data\stations.txt");
-                    var id = Convert.ToInt32(chars[i + 1]);
+                    var id = Convert.ToInt32(chars[i + 1].ToString());
                     var station = stations.Find(st => st.StationID == id);
                     trackDescription.Parts.Add(station);
                 }
