@@ -49,7 +49,7 @@ namespace TrainEngine.Tests
         [Fact]
         public void When_Using_StartAt_ArriveAt_GeneratePlan_Expect_ITravelPlan()
         {
-            var travelplan = new TravelPlan().StartAt("station1", "tid1").ArriveAt("station2", "tid2").GeneratePlan();
+            var travelplan = new TravelPlan(new Train("Sigurd")).StartAt("station1", "tid1").ArriveAt("station2", "tid2").GeneratePlan();
 
             Assert.IsType<TravelPlan>(travelplan);
         }
