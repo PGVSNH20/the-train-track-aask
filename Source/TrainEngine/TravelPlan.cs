@@ -6,6 +6,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using System.Threading;
 
 namespace TrainEngine
 {
@@ -104,9 +105,19 @@ namespace TrainEngine
             return trains;
         }
 
-        public void GetTrainTrack()
+        public void Simulate(Time time)
         {
+            Thread thread = new Thread(() => Run(time));
+            thread.Start();
+        }
 
+        public void Run(Time time)
+        {
+            while(true)
+            {
+                Console.WriteLine(" i TravelPlanRun");
+                Thread.Sleep(1000);
+            }
         }
     }
 }

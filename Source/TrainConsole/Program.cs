@@ -24,31 +24,15 @@ namespace TrainConsole
 
             //var td = TrackOrm.ParseTrackDescription("traintrack2.txt");
 
-            string time = "12:00";
-            while (true)
-            {
-                string[] hourandminutes = time.Split(':');
-                int hour = Convert.ToInt32(hourandminutes[0]);
-                int minut = Convert.ToInt32(hourandminutes[1]);
+            Time time = new Time();
+            Thread timeThread = new Thread(time.RunTime);
+            timeThread.Start();
 
-                if (minut == 59)
-                {
-                    minut = 0;
+            var trains = TravelPlan.GetTrains(@"Data\trains.txt");
+            var travelPlan = new TravelPlan(trains[2]).StartAt("Gävle", "12:00").ArriveAt("Uppsala", "13:05").GeneratePlan();
 
-                    if (hour == 23) hour = 0;
-                    else hour++;
-                }
-                else minut++;
+            travelPlan.Simulate(time);
 
-                string[] hourAndMinutesInts = { hour.ToString(), minut.ToString() };
-                if (Convert.ToInt32(hourAndMinutesInts[1]) <= 9)
-                    hourAndMinutesInts[1] = hourAndMinutesInts[1].Insert(0, "0");
-                time = string.Join(':', hourAndMinutesInts);
-
-                Thread.Sleep(1000);
-                Console.WriteLine(time);
-            }
-            
         }
     }
 }
