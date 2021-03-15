@@ -28,7 +28,7 @@ namespace TrainEngine.Tests
         //    // Arrange
         //    string track = "[1]-[2]";
         //    TrackOrm trackOrm = new TrackOrm();
-            
+
         //    // Act
         //    var result = trackOrm.ParseTrackDescription(track);
 
@@ -67,6 +67,13 @@ namespace TrainEngine.Tests
             var trains = TravelPlan.GetTrains(@"Data\trains.txt");
             Assert.IsType<List<Train>>(trains);
         }
+
+        [Fact]
+        public void When_Using_ParseTrackDescription_Expect_TrackDescription()
+        {
+            var trackDescription = TrackOrm.ParseTrackDescription("[1]-------[3]");
+            Assert.IsType<TrackDescription>(trackDescription);
         }
     }
+}
 

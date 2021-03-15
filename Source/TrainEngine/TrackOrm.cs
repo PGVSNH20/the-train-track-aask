@@ -4,7 +4,7 @@ namespace TrainEngine
 {
     public class TrackOrm
     {
-        public TrackDescription ParseTrackDescription(string track)
+        public static TrackDescription ParseTrackDescription(string track)
         {
             TrackDescription trackDescription = new TrackDescription();
             char[] chars = track.ToCharArray();
@@ -14,11 +14,17 @@ namespace TrainEngine
                 {
                     var stations = TravelPlan.GetStations(@"Data\stations.txt");
                     var id = Convert.ToInt32(chars[i + 1]);
-                    var station =  stations.fi
-                    trackDescription.Parts.Add(new Station());
+                    var station = stations.Find(st => st.StationID == id);
+                    trackDescription.Parts.Add(station);
+                }
+
+                if(chars[i] == '-')
+                {
+                    trackDescription.Parts.Add(new Length());
                 }
             }
 
+            return trackDescription;
         }
     }
 }
