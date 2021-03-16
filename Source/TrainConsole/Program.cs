@@ -35,6 +35,7 @@ namespace TrainConsole
 
             travelPlan.Simulate(time);
 
+
         }
     }
 }

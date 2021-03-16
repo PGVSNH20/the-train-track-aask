@@ -8,6 +8,7 @@ namespace TrainEngine
     public class Clock
     {
         public string Time { get; set; }
+        public int MinutPassed { get; set; } = 0;
         public void RunTime()
         {
             Time = "11:45";
@@ -30,7 +31,8 @@ namespace TrainEngine
                 if (Convert.ToInt32(hourAndMinutesInts[1]) <= 9)
                     hourAndMinutesInts[1] = hourAndMinutesInts[1].Insert(0, "0");
                 Time = string.Join(':', hourAndMinutesInts);
-
+                
+                MinutPassed++;
                 Thread.Sleep(1000);
                 Console.WriteLine("Klockan är: " + Time );
             }
