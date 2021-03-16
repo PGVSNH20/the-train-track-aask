@@ -113,6 +113,7 @@ namespace TrainEngine
 
         public void Run(Clock time)
         {
+            int minutesPassed = 0;
             SimulationIsRunning = true;
             while (SimulationIsRunning)
             {
@@ -120,7 +121,7 @@ namespace TrainEngine
                 var lengths = TrainTrack.Parts.OfType<Length>().ToList();
                 int distancetoDrive = lengths.Count * 10;
 
-                int distanceDrived = Train.MaxSpeed * time.MinutPassed;
+                int distanceDrived = Train.MaxSpeed * minutesPassed;
 
                 string depTime = TimeTable[0].DepartureTime;
 
@@ -134,10 +135,12 @@ namespace TrainEngine
 
                 if (distanceDrived >= distancetoDrive)
                 {
-                    Console.WriteLine("Train " + Train.TrainName + " arrival at " + arrStationID + ": " + time.Time);
+                    Console.WriteLine("Train " + Train.TrainName + " arrival at " + arrStationID);
                     Console.WriteLine("Train arrived after " + distanceDrived + " km");
                     SimulationIsRunning = false;
                 }
+
+                //Console.WriteLine($"Har åkt {distanceDrived} och ska åka {distancetoDrive}");
 
                 /*foreach(var entry in TimeTable)
                 {
@@ -158,6 +161,7 @@ namespace TrainEngine
                 }*/
 
 
+                minutesPassed++;
                 Thread.Sleep(1000);
             }
         }
