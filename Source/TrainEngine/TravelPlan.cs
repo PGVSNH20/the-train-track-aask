@@ -118,10 +118,14 @@ namespace TrainEngine
             while (SimulationIsRunning)
             {
 
-                var lengths = TrainTrack.Parts.OfType<Length>().ToList();
-                int distancetoDrive = lengths.Count * 10;
+                int distancetoDrive = 0;
+                int distanceDrived = 0;
+                TimeTableEntry currentEntry = null;
 
-                int distanceDrived = Train.MaxSpeed * minutesPassed;
+                if(Train.Moving)
+                {
+                distanceDrived = Train.MaxSpeed * minutesPassed;
+                }
 
                 string depTime = "";
                 
@@ -133,7 +137,7 @@ namespace TrainEngine
 
                 for(int i = 0; i < TimeTable.Count; i++)
                 {
-                    if (TimeTable[i].Station.EndStation)
+                    if (TimeTable[i].Station.EndStation && !(TimeTable[0].Station.StationID == TimeTable[i].Station.StationID))
                     {
                         endStation = TimeTable[i].Station;
                     }
@@ -141,61 +145,94 @@ namespace TrainEngine
                     if (!TimeTable[i].HasPassed)
                     {
                         depStation = TimeTable[i].Station;
-                        arrStation = TimeTable[i].Station;
                         depTime = TimeTable[i].DepartureTime;
+                        currentEntry = TimeTable[i];
                     }
 
+                    //if not at last timetable entry set arrStation to next entry station
+                    if (i != TimeTable.Count - 1 && distanceDrived >= distancetoDrive) arrStation = TimeTable[i + 1].Station;
+                    //Console.WriteLine("Nu är arrStation: " + arrStation.StationName);
 
+                    distancetoDrive = GetLengths(arrStation) * 10;
 
+                }
+                
                     if (depTime == time.Time)
                     {
+                        Train.Moving = true;
                         Console.WriteLine("Train " + Train.TrainName + " departed from " + depStation.StationName + ": " + depTime);
+                        currentEntry.HasPassed = true;
                     }
 
                     if (distanceDrived >= distancetoDrive)
                     {
+                        Train.Moving = false;
+
                         Console.WriteLine("Train " + Train.TrainName + " arrived at " + arrStation.StationName);
                         Console.WriteLine("Train arrived after " + distanceDrived + " km");
-                        TimeTable[i].HasPassed = true;
-                    
-                        if(arrStation == endStation)
+                        Console.WriteLine($"Har åkt {distanceDrived} och ska åka {distancetoDrive}");
+
+                        minutesPassed = 0;
+                        distancetoDrive = 0;
+                        distanceDrived = 0;
+
+                        if (arrStation == endStation)
                         {
                             SimulationIsRunning = false;
 
                         }
+
+
+
                     }
-                }
 
+                    //Console.WriteLine($"Har åkt {distanceDrived} och ska åka {distancetoDrive}");
 
-
-
-
-                //Console.WriteLine($"Har åkt {distanceDrived} och ska åka {distancetoDrive}");
-
-                /*foreach(var entry in TimeTable)
-                {
-                    string departureTime = entry.DepartureTime;
-                    string arrivalTime = entry.ArrivalTime;
-
-                    if (departureTime == time.Time)
+                    /*foreach(var entry in TimeTable)
                     {
-                        Console.WriteLine("Train " + Train.TrainName + " departed from " + entry.StationID + ": " + departureTime);
-                    }
+                        string departureTime = entry.DepartureTime;
+                        string arrivalTime = entry.ArrivalTime;
+
+                        if (departureTime == time.Time)
+                        {
+                            Console.WriteLine("Train " + Train.TrainName + " departed from " + entry.StationID + ": " + departureTime);
+                        }
 
 
-                    if (distanceDrived >= distancetoDrive)
-                    {
-                        Console.WriteLine("Train " + Train.TrainName + " arrival at " + entry.StationID + ": " + arrivalTime);
-                        Console.WriteLine("Train arrived after " + distanceDrived + " km");
-                    }
-                }*/
+                        if (distanceDrived >= distancetoDrive)
+                        {
+                            Console.WriteLine("Train " + Train.TrainName + " arrival at " + entry.StationID + ": " + arrivalTime);
+                            Console.WriteLine("Train arrived after " + distanceDrived + " km");
+                        }
+                    }*/
 
 
                 minutesPassed++;
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
 
+        private int GetLengths(Station station)
+        {
+            //calculates lengths between current stations
+            int lengths = 0;
+            for (int x = 0; x < TrainTrack.Parts.Count; x++)
+            {
+                //increments lengths if part is not a Station object
+                if (TrainTrack.Parts[x].GetType() != typeof(Station))
+                {
+                    lengths++;
+                }
+
+                //breaks loop if part is arrival station
+                if (TrainTrack.Parts[x] is Station)
+                {
+                    if ((TrainTrack.Parts[x] as Station).StationID == station.StationID) break;
+                }
+            }
+
+            return lengths;
+        }
         private string GetStationName(int id, List<Station> stations)
         {
            return stations.Find(st => st.StationID == id).StationName;
