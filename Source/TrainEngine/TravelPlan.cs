@@ -128,14 +128,18 @@ namespace TrainEngine
                 int depStationID = TimeTable[0].StationID;
                 int arrStationID = TimeTable[1].StationID;
 
+                var stations = TrainTrack.Parts.OfType<Station>().ToList();
+
+
+
                 if (depTime == time.Time)
                 {
-                    Console.WriteLine("Train " + Train.TrainName + " departed from " + depStationID + ": " + depTime);
+                    Console.WriteLine("Train " + Train.TrainName + " departed from " + GetStationName(depStationID, stations) + ": " + depTime);
                 }
 
                 if (distanceDrived >= distancetoDrive)
                 {
-                    Console.WriteLine("Train " + Train.TrainName + " arrival at " + arrStationID);
+                    Console.WriteLine("Train " + Train.TrainName + " arrived at " + GetStationName(arrStationID, stations));
                     Console.WriteLine("Train arrived after " + distanceDrived + " km");
                     SimulationIsRunning = false;
                 }
@@ -164,6 +168,11 @@ namespace TrainEngine
                 minutesPassed++;
                 Thread.Sleep(1000);
             }
+        }
+
+        private string GetStationName(int id, List<Station> stations)
+        {
+           return stations.Find(st => st.StationID == id).StationName;
         }
     }
 }

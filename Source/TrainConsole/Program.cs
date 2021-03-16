@@ -32,7 +32,7 @@ namespace TrainConsole
             var trains = TravelPlan.GetTrains(@"Data\trains.txt");
             var travelPlan = new TravelPlan(trains[2], td)
                 .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = "12:00", ArrivalTime = null, StationID = 1 })
-                .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = null, ArrivalTime = "12:15", StationID = 2 });
+                .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = null, ArrivalTime = "12:15", StationID = 3 });
 
             travelPlan.Simulate(time);
 
