@@ -9,8 +9,10 @@ namespace TrainEngine
     {
         public string Time { get; set; }
         public int MinutPassed { get; set; } = 0;
+
         public void RunTime()
         {
+
             Time = "11:55";
             while (true)
             {

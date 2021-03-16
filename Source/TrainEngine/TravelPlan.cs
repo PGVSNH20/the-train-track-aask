@@ -18,6 +18,7 @@ namespace TrainEngine
         private Train Train { get; set; }
 
         private TrackDescription TrainTrack { get; set; }
+        private bool SimulationIsRunning = false;
 
         public static ITravelPlan Load(string path)
         {
@@ -112,7 +113,8 @@ namespace TrainEngine
 
         public void Run(Clock time)
         {
-            while(true)
+            SimulationIsRunning = true;
+            while (SimulationIsRunning)
             {
 
                 var lengths = TrainTrack.Parts.OfType<Length>().ToList();
@@ -121,8 +123,21 @@ namespace TrainEngine
                 int distanceDrived = Train.MaxSpeed * time.MinutPassed;
 
                 string depTime = TimeTable[0].DepartureTime;
-                
 
+                int depStationID = TimeTable[0].StationID;
+                int arrStationID = TimeTable[1].StationID;
+
+                if (depTime == time.Time)
+                {
+                    Console.WriteLine("Train " + Train.TrainName + " departed from " + depStationID + ": " + depTime);
+                }
+
+                if (distanceDrived >= distancetoDrive)
+                {
+                    Console.WriteLine("Train " + Train.TrainName + " arrival at " + arrStationID + ": " + time.Time);
+                    Console.WriteLine("Train arrived after " + distanceDrived + " km");
+                    SimulationIsRunning = false;
+                }
 
                 /*foreach(var entry in TimeTable)
                 {
