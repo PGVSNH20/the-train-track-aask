@@ -123,35 +123,52 @@ namespace TrainEngine
 
                 int distanceDrived = Train.MaxSpeed * minutesPassed;
 
-                string depTime = TimeTable[0].DepartureTime;
+                string depTime = "";
                 
                 var stations = TrainTrack.Parts.OfType<Station>().ToList();
                 Station endStation = null;
+                Station depStation = null;
+                Station arrStation = null;
                 
 
-                foreach(var entry in TimeTable)
+                for(int i = 0; i < TimeTable.Count; i++)
                 {
-                    if (entry.Station.EndStation)
+                    if (TimeTable[i].Station.EndStation)
                     {
-                        endStation = entry.Station;
+                        endStation = TimeTable[i].Station;
                     }
 
+                    if (!TimeTable[i].HasPassed)
+                    {
+                        depStation = TimeTable[i].Station;
+                        arrStation = TimeTable[i].Station;
+                        depTime = TimeTable[i].DepartureTime;
+                    }
+
+
+
+                    if (depTime == time.Time)
+                    {
+                        Console.WriteLine("Train " + Train.TrainName + " departed from " + depStation.StationName + ": " + depTime);
+                    }
+
+                    if (distanceDrived >= distancetoDrive)
+                    {
+                        Console.WriteLine("Train " + Train.TrainName + " arrived at " + arrStation.StationName);
+                        Console.WriteLine("Train arrived after " + distanceDrived + " km");
+                        TimeTable[i].HasPassed = true;
+                    
+                        if(arrStation == endStation)
+                        {
+                            SimulationIsRunning = false;
+
+                        }
+                    }
                 }
 
 
 
 
-                if (depTime == time.Time)
-                {
-                    Console.WriteLine("Train " + Train.TrainName + " departed from " + GetStationName(depStationID, stations) + ": " + depTime);
-                }
-
-                if (distanceDrived >= distancetoDrive)
-                {
-                    Console.WriteLine("Train " + Train.TrainName + " arrived at " + GetStationName(arrStationID, stations));
-                    Console.WriteLine("Train arrived after " + distanceDrived + " km");
-                    SimulationIsRunning = false;
-                }
 
                 //Console.WriteLine($"Har åkt {distanceDrived} och ska åka {distancetoDrive}");
 
