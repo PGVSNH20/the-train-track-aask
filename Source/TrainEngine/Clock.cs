@@ -11,7 +11,7 @@ namespace TrainEngine
         public int MinutPassed { get; set; } = 0;
         public void RunTime()
         {
-            Time = "11:45";
+            Time = "11:55";
             while (true)
             {
                 string[] hourandminutes = Time.Split(':');

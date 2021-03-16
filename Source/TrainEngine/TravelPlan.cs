@@ -37,10 +37,10 @@ namespace TrainEngine
             File.WriteAllText(path, travelPlanString);
         }
 
-        public TravelPlan(Train train)
+        public TravelPlan(Train train, TrackDescription td)
         {
             Train = train;
-
+            TrainTrack = td;
             TimeTable = new List<TimeTableEntry>();
         }
 
@@ -115,12 +115,16 @@ namespace TrainEngine
             while(true)
             {
 
-                var lengths = TrainTrack.Parts.Where(part => part.GetType() == typeof(Length)).ToList();
+                var lengths = TrainTrack.Parts.OfType<Length>().ToList();
                 int distancetoDrive = lengths.Count * 10;
 
                 int distanceDrived = Train.MaxSpeed * time.MinutPassed;
 
-                foreach(var entry in TimeTable)
+                string depTime = TimeTable[0].DepartureTime;
+                
+
+
+                /*foreach(var entry in TimeTable)
                 {
                     string departureTime = entry.DepartureTime;
                     string arrivalTime = entry.ArrivalTime;
@@ -131,11 +135,12 @@ namespace TrainEngine
                     }
 
 
-                    if (arrivalTime == time.Time)
+                    if (distanceDrived >= distancetoDrive)
                     {
                         Console.WriteLine("Train " + Train.TrainName + " arrival at " + entry.StationID + ": " + arrivalTime);
+                        Console.WriteLine("Train arrived after " + distanceDrived + " km");
                     }
-                }
+                }*/
 
 
                 Thread.Sleep(1000);
