@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -113,7 +114,11 @@ namespace TrainEngine
         {
             while(true)
             {
-                Thread.Sleep(1000);
+
+                var lengths = TrainTrack.Parts.Where(part => part.GetType() == typeof(Length)).ToList();
+                int distancetoDrive = lengths.Count * 10;
+
+                int distanceDrived = Train.MaxSpeed * time.MinutPassed;
 
                 foreach(var entry in TimeTable)
                 {
@@ -131,6 +136,9 @@ namespace TrainEngine
                         Console.WriteLine("Train " + Train.TrainName + " arrival at " + entry.StationID + ": " + arrivalTime);
                     }
                 }
+
+
+                Thread.Sleep(1000);
             }
         }
     }
