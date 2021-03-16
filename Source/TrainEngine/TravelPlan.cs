@@ -124,11 +124,13 @@ namespace TrainEngine
                 int distanceDrived = Train.MaxSpeed * minutesPassed;
 
                 string depTime = TimeTable[0].DepartureTime;
+                
+                var stations = TrainTrack.Parts.OfType<Station>().ToList();
 
                 int depStationID = TimeTable[0].StationID;
                 int arrStationID = TimeTable[1].StationID;
+                int endStationID = stations[stations.Count].StationID;
 
-                var stations = TrainTrack.Parts.OfType<Station>().ToList();
 
 
 
