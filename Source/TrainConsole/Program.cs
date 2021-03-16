@@ -28,7 +28,7 @@ namespace TrainConsole
             Thread timeThread = new Thread(time.RunTime);
             timeThread.Start();
 
-            var td = TrackOrm.ParseTrackDescription(@"traintrack1.txt");
+            var td = TrackOrm.ParseTrackDescription(@"Data\traintrack1.txt");
             var trains = TravelPlan.GetTrains(@"Data\trains.txt");
             var travelPlan = new TravelPlan(trains[2], td)
                 .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = "12:00", ArrivalTime = null, StationID = 1 })
