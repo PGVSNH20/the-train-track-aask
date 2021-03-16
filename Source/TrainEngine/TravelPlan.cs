@@ -126,10 +126,17 @@ namespace TrainEngine
                 string depTime = TimeTable[0].DepartureTime;
                 
                 var stations = TrainTrack.Parts.OfType<Station>().ToList();
+                Station endStation = null;
+                
 
-                int depStationID = TimeTable[0].StationID;
-                int arrStationID = TimeTable[1].StationID;
-                int endStationID = stations[stations.Count].StationID;
+                foreach(var entry in TimeTable)
+                {
+                    if (entry.Station.EndStation)
+                    {
+                        endStation = entry.Station;
+                    }
+
+                }
 
 
 
