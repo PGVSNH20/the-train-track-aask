@@ -19,6 +19,8 @@ namespace TrainEngine
 
         private TrackDescription TrainTrack { get; set; }
         private bool SimulationIsRunning = false;
+        private object CurrentPart = null;
+        private int PartIndex = 0;
 
         public static ITravelPlan Load(string path)
         {
@@ -42,6 +44,7 @@ namespace TrainEngine
         {
             Train = train;
             TrainTrack = td;
+            CurrentPart = TrainTrack.Parts[0];
             TimeTable = new List<TimeTableEntry>();
         }
 
@@ -153,6 +156,8 @@ namespace TrainEngine
                     }
 
                     int distanceToDrive = 0;
+                    CurrentPart = TrainTrack.Parts[PartIndex];
+                    PartIndex++;
 
                     //Om det finns en arrivalStation körs följande 
                     if(arrStation != null)
