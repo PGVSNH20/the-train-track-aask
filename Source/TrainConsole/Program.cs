@@ -16,14 +16,14 @@ namespace TrainConsole
             var trains = TrainOrm.GetTrains(@"Data\trains.txt");
             var stations = StationsOrm.GetStations(@"Data\stations.txt");
 
-            var td = TrackOrm.ParseTrackDescription(@"Data\traintrack1.txt");
+            /*var td = TrackOrm.ParseTrackDescription(@"Data\traintrack1.txt");
              var travelPlan = new TravelPlan(trains[2], td)
                  .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = "12:00", ArrivalTime = null, Station = stations[0] })
                  .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = null, ArrivalTime = "12:15", Station = stations[2] });
 
              travelPlan.Simulate(time);
-
-            /*
+            */
+            
             var td = TrackOrm.ParseTrackDescription("traintrack2.txt");
             var signals = new Signals(time, td);
             Thread signalsThread = new Thread(signals.Simulate);
@@ -42,7 +42,7 @@ namespace TrainConsole
                 .AddEntry(new TimeTableEntry() { TrainID = 3, DepartureTime = null, ArrivalTime = "12:33", Station = stations[2]});
 
             travelPlanTwo.Simulate(time); 
-             */
+             
         }
     }
 }

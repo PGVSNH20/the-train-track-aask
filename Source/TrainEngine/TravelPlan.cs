@@ -99,8 +99,6 @@ namespace TrainEngine
                         train.Moving = true;
                         Console.ForegroundColor = train.TrainName == "Lapplandståget" ? ConsoleColor.Red : ConsoleColor.Green;
                         Console.WriteLine($"{train.TrainName} departed from {deptStation.StationName}");
-                        Console.ForegroundColor = ConsoleColor.White;
-
                     }
 
 
@@ -113,7 +111,8 @@ namespace TrainEngine
 
                     UpdateDistance(distanceDriven, deptStation, arrStation);
 
-                    minutesPassed++;
+                    if(train.Moving)
+                        minutesPassed++;
                 }
                 else
                 {
@@ -185,23 +184,25 @@ namespace TrainEngine
         {
             if(train.Moving)
             {
-                var nextPart = trainTrack.Parts[partIndex + 1];
-                if(nextPart is Crossing crossing)
+                var nextPart = partIndex + 1 == trainTrack.Parts.Count ? null : trainTrack.Parts[partIndex + 1];
+                if (nextPart != null) 
                 {
-                    if(!crossing.barriersDown)
+                    if (nextPart is Crossing crossing)
                     {
-                        train.Moving = false;
-                        Console.ForegroundColor = train.TrainName == "Lapplandståget" ? ConsoleColor.Red : ConsoleColor.Green;
-                        Console.WriteLine($"{train.TrainName} is waiting for Carlos to close crossing barriers.");
+                        if (!crossing.barriersDown)
+                        {
+                            train.Moving = false;
+                            Console.ForegroundColor = train.TrainName == "Lapplandståget" ? ConsoleColor.Red : ConsoleColor.Green;
+                            Console.WriteLine($"{train.TrainName} is waiting for Carlos to close crossing barriers.");
+                        }
+                        else
+                        {
+                            train.Moving = true;
+                            Console.ForegroundColor = train.TrainName == "Lapplandståget" ? ConsoleColor.Red : ConsoleColor.Green;
+                            Console.WriteLine($"{train.TrainName} passed a closed crossing.");
+                        }
                     }
-                    else
-                    {
-                        train.Moving = true;
-                        Console.ForegroundColor = train.TrainName == "Lapplandståget" ? ConsoleColor.Red : ConsoleColor.Green;
-                        Console.WriteLine($"{train.TrainName} passed a closed crossing.");
-                        
-                    }
-                }
+                }  
             }
             else
             {
