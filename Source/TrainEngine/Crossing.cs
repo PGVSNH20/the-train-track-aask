@@ -6,6 +6,6 @@ namespace TrainEngine
 {
     class Crossing
     {
-        public bool barriersOpen = true;
+        public bool barriersDown = false;
     }
 }
