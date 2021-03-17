@@ -108,6 +108,7 @@ namespace TrainEngine
         public void Simulate(Clock time)
         {
             Thread thread = new Thread(() => Run(time));
+            SimulationIsRunning = true;
             thread.Start();
         }
 
@@ -148,7 +149,7 @@ namespace TrainEngine
                     if (deptTime != null && (int.Parse(deptTime.Split(":")[1]) == int.Parse(time.Time.Split(":")[1])))
                     {
                         Train.Moving = true;
-                        Console.WriteLine($"{Train.TrainName} departured from {deptStation.StationName}");
+                        Console.WriteLine($"{Train.TrainName} departed from {deptStation.StationName}");
                     }
 
                     int distanceToDrive = 0;
@@ -157,9 +158,32 @@ namespace TrainEngine
                     if(arrStation != null)
                     {
                         //Räkna ut avståndet till nästa station
+                        int lengthToNextStation = GetLenghtsBetweenStations(deptStation, arrStation);
+                        distanceToDrive = lengthToNextStation * 10;
 
+                        //kolla om tåget har kört så långt som avståndet är till nästa station
+                        //aka kolla om tåget har kommit fram till stationen
+                        if(distanceDriven >= distanceToDrive)
+                        {
+                            if(arrStation.StationID == endStation.StationID)
+                                Console.WriteLine($"{Train.TrainName} reached it's final destination {endStation.StationName}");
+                            else
+                                Console.WriteLine($"{Train.TrainName} arrived at station {arrStation.StationName}");
+
+                            Train.Moving = false;
+                            minutesPassed = 0;
+                            currentEntry.HasPassed = true;
+                        }
+                    }
+                    else
+                    {
+                        if(distanceDriven >= distanceToDrive)
+                        {
+                            currentEntry.HasPassed = true;
+                        }
                     }
 
+                    minutesPassed++;
                 }
                 else
                 {
@@ -174,7 +198,25 @@ namespace TrainEngine
         {
             int lenghts = 0;
 
-            //
+            //hämta index för nuvarande depStation i TrainTrack parts listan och tilldela depStationIndex
+            int depStationIndex = TrainTrack.Parts.FindIndex(station =>
+            {
+                if (station is Station st)
+                    if (st.StationID == dept.StationID)
+                        return true;
+                return false;
+            });
+
+            //använd index på nuvarande deptStation för att börja räkna delar mellan deptStation och arrStation
+            foreach(object obj in TrainTrack.Parts.Skip(depStationIndex).ToList())
+            {
+                if (!(obj is Station)) lenghts++;
+
+                if (obj is Station station)
+                    if (station.StationID == arr.StationID) break;
+            }
+
+            return lenghts;
         }
 
         private int GetLengths(Station station)
