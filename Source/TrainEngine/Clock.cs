@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace TrainEngine
@@ -8,7 +6,6 @@ namespace TrainEngine
     public class Clock
     {
         public string Time { get; set; }
-        //public int MinutPassed { get; set; } = 0;
 
         public void RunTime()
         {

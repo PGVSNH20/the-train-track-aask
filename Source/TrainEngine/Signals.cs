@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace TrainEngine
@@ -15,7 +13,7 @@ namespace TrainEngine
             this.description = description;
         }
 
-        public void simulate()
+        public void Simulate()
         {
             var crossing = (description.Parts[4] as Crossing);
             while (true)
@@ -44,7 +42,7 @@ namespace TrainEngine
                     Console.ForegroundColor = ConsoleColor.White;
                 }
 
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             } 
         }
     }

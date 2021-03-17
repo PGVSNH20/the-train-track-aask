@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.IO;
 
 namespace TrainEngine
 {
@@ -7,7 +7,7 @@ namespace TrainEngine
     {
         public static TrackDescription ParseTrackDescription(string fileName)
         {
-            string[] lines = System.IO.File.ReadAllLines(fileName);
+            string[] lines = File.ReadAllLines(fileName);
             var track = lines[0];
 
             TrackDescription trackDescription = new TrackDescription();
@@ -16,7 +16,7 @@ namespace TrainEngine
             {
                 if (chars[i] == '[')
                 {
-                    var stations = TravelPlan.GetStations(@"Data\stations.txt");
+                    var stations = StationsOrm.GetStations(@"Data\stations.txt");
                     var id = Convert.ToInt32(chars[i + 1].ToString());
                     var station = stations.Find(st => st.StationID == id);
                     trackDescription.Parts.Add(station);
