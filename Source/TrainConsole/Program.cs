@@ -41,10 +41,10 @@ namespace TrainConsole
             Thread signalsThread = new Thread(signals.simulate);
             signalsThread.Start();
 
-            var travelPlan = new TravelPlan(trains[3], td)
-                .AddEntry(new TimeTableEntry() { TrainID = 4, DepartureTime = "12:00", ArrivalTime = null, Station = stations[0]})
-                .AddEntry(new TimeTableEntry() { TrainID = 4, DepartureTime = "12:15", ArrivalTime = "12:12", Station = stations[1]})
-                .AddEntry(new TimeTableEntry() { TrainID = 4, DepartureTime = null, ArrivalTime = "12:28", Station = stations[2]});
+            var travelPlan = new TravelPlan(trains[1], td)
+                .AddEntry(new TimeTableEntry() { TrainID = 2, DepartureTime = "12:00", ArrivalTime = null, Station = stations[0]})
+                .AddEntry(new TimeTableEntry() { TrainID = 2, DepartureTime = "12:17", ArrivalTime = "12:12", Station = stations[1]})
+                .AddEntry(new TimeTableEntry() { TrainID = 2, DepartureTime = null, ArrivalTime = "12:30", Station = stations[2]});
 
             travelPlan.Simulate(time);            
             

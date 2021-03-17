@@ -17,13 +17,33 @@ namespace TrainEngine
 
         public void simulate()
         {
-            while(true)
+            var crossing = (description.Parts[4] as Crossing);
+            while (true)
             {
                 if(time.Time == "12:06")
                 {
-                    (description.Parts[4] as Crossing).barriersDown = true;
-                    Console.WriteLine("Bommar nere");
+                    crossing.barriersDown = true;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Carlos closed the barriers");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }                
+                
+                if(time.Time == "12:08")
+                {
+                    crossing.barriersDown = false;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Carlos opened the barriers");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }                
+                
+                if(time.Time == "12:10")
+                {
+                    crossing.barriersDown = true;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Carlos closed the barriers");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
+
                 Thread.Sleep(500);
             } 
         }

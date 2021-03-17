@@ -34,8 +34,9 @@ namespace TrainEngine
                     hourAndMinutesInts[1] = hourAndMinutesInts[1].Insert(0, "0");
                 Time = string.Join(':', hourAndMinutesInts);
 
-                Thread.Sleep(500);
-                Console.WriteLine("Klockan är: " + Time);
+                Thread.Sleep(1000);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("The time is: " + Time);
             }
         }
     }
