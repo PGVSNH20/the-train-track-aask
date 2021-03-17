@@ -159,6 +159,8 @@ namespace TrainEngine
                     CurrentPart = TrainTrack.Parts[PartIndex];
                     PartIndex++;
 
+                    CheckSignals();
+
                     //Om det finns en arrivalStation körs följande 
                     if(arrStation != null)
                     {
@@ -199,6 +201,48 @@ namespace TrainEngine
             }
         }
 
+        private void CheckSignals()
+        {
+            if(Train.Moving)
+            {
+                var nextPart = TrainTrack.Parts[PartIndex + 1];
+                if(nextPart is Crossing crossing)
+                {
+                    if(!crossing.barriersDown)
+                    {
+                        Train.Moving = false;
+                        Console.ForegroundColor = Train.TrainName == "Norrlandståget" ? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.WriteLine($"{Train.TrainName} is waiting for Carlos to close crossing barriers.");
+                    }
+                    else
+                    {
+                        Train.Moving = true;
+                        Console.ForegroundColor = Train.TrainName == "Norrlandståget" ? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.WriteLine($"{Train.TrainName} passed a closed crossing.");
+                    }
+                }
+            }
+            else
+            {
+                var nextPart = PartIndex + 1 == TrainTrack.Parts.Count ? null : TrainTrack.Parts[PartIndex + 1];
+                if(nextPart != null)
+                {
+                    if(nextPart is Crossing crossing)
+                    {
+                        if(crossing.barriersDown)
+                        {
+                            Train.Moving = true;
+                            Console.ForegroundColor = Train.TrainName == "Norrlandståget" ? ConsoleColor.Red : ConsoleColor.Green;
+                            Console.WriteLine($"Crossing is closed, {Train.TrainName} is continuing it's journey.");
+                        }
+                        else
+                        {
+                            Train.Moving = false;
+                        }
+                    } 
+                }
+            }
+        }
         public int GetLenghtsBetweenStations(Station dept,Station arr)
         {
             int lenghts = 0;
