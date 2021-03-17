@@ -123,6 +123,7 @@ namespace TrainEngine
             while (SimulationIsRunning)
             {
                 TimeTableEntry currentEntry = null;
+                int entryIndex = 0;
 
                 //Hitta den aktiva tidtabbels entry och tilldelar currentEntry
                 for (int i = 0; i < TimeTable.Count; i++)
@@ -130,6 +131,7 @@ namespace TrainEngine
                     if (!TimeTable[i].HasPassed)
                     {
                         currentEntry = TimeTable[i];
+                        entryIndex = i;
                         break;
                     }
                 }
@@ -137,7 +139,27 @@ namespace TrainEngine
                 //Kolla om det finns en aktiv entry, om ja körs följade kod
                 if (currentEntry != null)
                 {
-                    
+                    Station deptStation = currentEntry.Station;
+                    Station arrStation = (entryIndex + 1) < TimeTable.Count ? TimeTable[entryIndex + 1]?.Station : null;
+                    string deptTime = currentEntry.DepartureTime;
+                    int distanceDriven = Train.Moving ? Train.MaxSpeed * minutesPassed : 0;
+
+                    //Kolla om deptTime är samma som klockan om ja börjar åka
+                    if (deptTime != null && (int.Parse(deptTime.Split(":")[1]) == int.Parse(time.Time.Split(":")[1])))
+                    {
+                        Train.Moving = true;
+                        Console.WriteLine($"{Train.TrainName} departured from {deptStation.StationName}");
+                    }
+
+                    int distanceToDrive = 0;
+
+                    //Om det finns en arrivalStation körs följande 
+                    if(arrStation != null)
+                    {
+                        //Räkna ut avståndet till nästa station
+
+                    }
+
                 }
                 else
                 {
@@ -146,6 +168,13 @@ namespace TrainEngine
                 }
                 Thread.Sleep(500);
             }
+        }
+
+        public int GetLenghtsBetweenStations(Station dept,Station arr)
+        {
+            int lenghts = 0;
+
+            //
         }
 
         private int GetLengths(Station station)
